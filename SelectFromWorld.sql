@@ -47,8 +47,9 @@ select name, population, area
 from world
 where area > 3000000 or population > 250000000
 
-8.One or the other (but not both)
-/*Exclusive OR (XOR). Show the countries that are big by area or big by population but not both. Show name, population and area.
+8.One or the other (but not both) **
+/*Exclusive OR (XOR). Show the countries that are big by area or big by population but not both. 
+Show name, population and area.
 
 Australia has a big area but a small population, it should be included.
 Indonesia has a big population but a small area, it should be included.
@@ -78,3 +79,31 @@ Show per-capita GDP for the trillion dollar countries to the nearest $1000.*/
 select name, round(gdp/population,-3)
 from world
 where gdp >= 1000000000000
+
+11.Name and capital have the same length **
+#Show the name and capital where the name and the capital have the same number of characters.
+
+Select name, capital
+From world 
+Where length(name) = length(capital)
+
+12.Matching name and capital **
+#Show the name and the capital where the first letters of each match. 
+#Don't include countries where the name and the capital are the same word.
+
+Select name, capital 
+From world
+Where LEFT(name,1) = LEFT(capital,1) and name <> capital
+
+
+13.All the vowels
+#Find the country that has all the vowels and no spaces in its name.
+
+SELECT name
+FROM world
+WHERE name LIKE '%a%' AND name LIKE '%i%' AND name LIKE '%o%' AND name LIKE '%u%' AND name LIKE '%e%'
+AND name NOT LIKE '% %'
+
+  
+
+
