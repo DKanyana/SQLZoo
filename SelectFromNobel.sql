@@ -27,7 +27,7 @@ Select winner
 From nobel
 Where yr >=2000 AND subject = 'Peace'
 
-5.Literature in the 1980's
+5.Literature in the 1980
 #Show all details (yr, subject, winner) of the Literature prize winners for 1980 to 1989 inclusive.
 
 Select yr, subject, winner
