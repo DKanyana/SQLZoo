@@ -79,3 +79,57 @@ FROM world
 GROUP BY continent
 HAVING SUM(population)>100000000;
 
+9.For each subject show the first year that the prize was awarded.
+
+SELECT subject, min(yr)
+FROM nobel
+GROUP BY subject;
+
+10.For each subject show the number of prizes awarded in the year 2000.
+
+SELECT subject, count(winner)
+FROM nobel
+where yr =2000
+GROUP BY subject;
+
+11.Show the number of different winners for each subject.
+
+SELECT subject, count(distinct winner)
+FROM nobel
+GROUP BY subject;
+
+12.For each subject show how many years have had prizes awarded.
+
+SELECT subject, count(distinct yr)
+FROM nobel
+GROUP BY subject;
+
+13.Show the years in which three prizes were given for Physics.
+
+select yr
+from nobel
+where subject = 'Physics'
+group by yr
+having count(winner)=3
+
+14.Show winners who have won more than once.
+
+select winner
+from nobel
+group by winner
+having count(winner)>1
+
+15.Show winners who have won more than one subject.
+
+select winner
+FROM nobel
+GROUP BY winner
+HAVING COUNT(DISTINCT subject)>1
+
+16.Show the year and subject where 3 prizes were given. Show only years 2000 onwards
+
+SELECT yr,subject 
+FROM nobel
+WHERE yr>=2000
+group by yr,subject
+having count(winner)=3
