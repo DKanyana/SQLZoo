@@ -34,7 +34,7 @@ from world
 where population > (select  population from world where name = 'Canada')
 and  population < (select  population from world where name = 'Poland');
 
-5.Percentages of Germany
+5.Percentages of Germany ***
 #Show the name and the population of each country in Europe. Show the population as a percentage of the population of Germany.
 
 select name, CONCAT(ROUND(population/(select population from world where name ='Germany')*100),'%')
@@ -44,6 +44,17 @@ where continent = 'Europe'
 6.Bigger than every country in Europe
 #Which countries have a GDP greater than every country in Europe? [Give the name only.] 
 #(Some countries may have NULL gdp values)
+/*
+SET Operations - IN, ANY, ALL
+IN - equals to any item in the list
+ANY - compare value to each item in the list
+ALL - compare value to all item in the list
+<ANY - less the max in the list
+>ANY - greater than minimum
+=ANY - quivalent to IN
+<ALL - less than minimum value in the list
+>ALL - greater than maximum value in the list
+*/
 
 select name
 from world
@@ -61,6 +72,8 @@ the same table, one in the outer query and the other in the subquery.
 
 One way to interpret the line in the WHERE clause that references the two table is “… where the correlated values 
 are the same”.
+Performance - Correlated subquery performs better if outer or inner query returns less number of records else views 
+or joins are better.
 
 In the example provided, you would say “select the country details from world where the population is greater 
 than or equal to the population of all countries where the continent is the same”.
@@ -78,13 +91,25 @@ SELECT continent, name, area FROM world x
         WHERE y.continent=x.continent
           AND area>0)
 
-8.First country of each continent (alphabetically)
+8.First country of each continent (alphabetically) ***
 #List each continent and the name of the country that comes first alphabetically.
 
 select continent, name 
 from world x
 where name <=ALL(select name from world y where x.continent = y.continent);
 
-9.Find the continents where all countries have a population <= 25000000. 
+9.Find the continents where all countries have a population <= 25000000. ***
 #Then find the names of the countries associated with these continents. Show name, continent and population.
+
+select name, continent, population
+from world x
+where 25000000>=ALL(select population from world y where x.continent = y.continent and population>0)
+
+10.Some countries have populations more than three times that of any of their neighbours (in the same continent). 
+#Give the countries and continents.
+
+select name, continent
+from world x
+where population >ALL(select population*3 from world y where x.continent = y.continent and population>0 and x.name!=y.name);
+
 
